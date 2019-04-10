@@ -1,5 +1,4 @@
-import 'package:html/parser.dart' show parse;
-import 'package:html/dom.dart';
+
 class ProductService {
   int id;
   String name;
@@ -7,6 +6,7 @@ class ProductService {
   String price;
   String priceHtml;
   List<Images> images;
+  List htmlTags;
 
   ProductService(
       {this.id, this.name, this.stockStatus, this.price,this.images,this.priceHtml});
@@ -14,14 +14,13 @@ class ProductService {
   factory ProductService.fromJson(Map<String, dynamic> json) {
   var list = json['images'] as List;
   List<Images> imagesList = list.map((i) => Images.fromJson(i)).toList();
-  print(parse(json['price_html']).getElementsByClassName("woocommerce-Price-currencySymbol"));
+ 
     return ProductService(
         id: json['id'],
         name: json['name'],
         stockStatus: json['stock_status'],
         price: json['price'],
-        images: imagesList,
-        priceHtml: parse(json['price_html']).outerHtml
+        images: imagesList
        );
   }
 }

@@ -45,6 +45,7 @@ class _HomeState extends State<Home> {
   void initState() {
     email = widget.email;
     displayName = widget.displayName;
+
     setState(() {
       this.getCategoryData();
       this.getAccountingData();
@@ -52,10 +53,13 @@ class _HomeState extends State<Home> {
       this.getBankingData();
       this.getBookRentalData();
       this.getBusinessManagementData();
-
     });
-    
-  
+
+    // this.getAuditingData();
+    // this.getBankingData();
+    // this.getBookRentalData();
+    // this.getBusinessManagementData();
+
     super.initState();
   }
 
@@ -64,19 +68,20 @@ class _HomeState extends State<Home> {
     super.dispose();
   }
 
-  Future<void> getCategoryData()async{
-     var res =await http.get(
+  Future<void> getCategoryData() async {
+    var res = await http.get(
         "https://bookabook.co.za/wp-json/wc/v3/products/categories?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1");
-        var data = json.decode(res.body);
-    var list = data as List;
 
     setState(() {
-      categoryList = list
-          .map<CatService>((json) => CatService.fromJson(json))
-          .toList();
+      var data = json.decode(res.body);
+      var list = data as List;
+      print("List of cat $list");
+      categoryList =
+          list.map<CatService>((json) => CatService.fromJson(json)).toList();
 
-      category =
-          categoryList.where((data) => data.count >0&&data.catName!='Uncategorized').toList();
+      category = categoryList
+          .where((data) => data.count > 0 && data.catName != 'Uncategorized')
+          .toList();
     });
   }
   Future<void> getBusinessManagementData() async {
@@ -98,7 +103,7 @@ class _HomeState extends State<Home> {
 
  Future<void> getBookRentalData() async {
     var res =await http.get(
-        "https://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=127");
+        "https://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=4047");
 
     var data = json.decode(res.body);
     var list = data as List;
@@ -113,13 +118,13 @@ class _HomeState extends State<Home> {
     });
   }
   Future<void> getAccountingData() async {
-    var res =await http.get(
-        "https://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=127");
-
-    var data = json.decode(res.body);
-    var list = data as List;
+    var res = await http.get(
+        "https://bookabook.co.za/wp-json/wc/v3/products?category=127&per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1");
 
     setState(() {
+      var data = json.decode(res.body);
+      var list = data as List;
+      print(list);
       productList = list
           .map<ProductService>((json) => ProductService.fromJson(json))
           .toList();
@@ -192,7 +197,6 @@ class _HomeState extends State<Home> {
 
   @override
   Widget build(BuildContext context) {
-      
     SystemChrome.setSystemUIOverlayStyle(
       SystemUiOverlayStyle(
           statusBarColor: Color(0xFFFF900F),
@@ -217,10 +221,13 @@ class _HomeState extends State<Home> {
           child: new Row(
             mainAxisAlignment: MainAxisAlignment.spaceEvenly,
             children: <Widget>[
-              new Icon(Icons.home,color: Colors.white,),
-              new Icon(Icons.notifications,color: Colors.white),
-              new Icon(Icons.search,color: Colors.white),
-              new Icon(Icons.person,color: Colors.white),
+              new Icon(
+                Icons.home,
+                color: Colors.white,
+              ),
+              new Icon(Icons.notifications, color: Colors.white),
+              new Icon(Icons.search, color: Colors.white),
+              new Icon(Icons.person, color: Colors.white),
             ],
           ),
         ),
@@ -252,45 +259,50 @@ class _HomeState extends State<Home> {
         centerTitle: false,
       ),
       drawer: Drawer(child: navBarBuilder(context)),
-      body: !(businessManagement == null)
+      body: !(filteredProducts == null)
           ? productListBuilder(context)
           : new Center(child: new CircularProgressIndicator()),
     );
   }
 
   Widget productListBuilder(BuildContext context) {
- 
     return SingleChildScrollView(
       child: Padding(
-        padding: const EdgeInsets.only(right: 0.0,left: 14.0,top: 14.0,bottom: 14.0),
+        padding: const EdgeInsets.only(
+            right: 0.0, left: 14.0, top: 14.0, bottom: 14.0),
         child: Column(
-
           children: <Widget>[
             Container(
-              height:50.0,
+              height: 50.0,
               child: ListView.builder(
                 scrollDirection: Axis.horizontal,
                 itemCount: category.length,
-                itemBuilder: (context,i){
+                itemBuilder: (context, i) {
                   return Padding(
                     padding: const EdgeInsets.all(8.0),
                     child: new Container(
                       decoration: new BoxDecoration(
                         color: Color(0xFFFF900F),
                         borderRadius: new BorderRadius.circular(15.0),
-                        border: new Border.all(color: Colors.white,),
+                        border: new Border.all(
+                          color: Colors.white,
+                        ),
                         boxShadow: [
-                                        new BoxShadow(
-                                          color: Colors.black45,
-                                          offset: new Offset(1.0, 1.0),
-                                          blurRadius: 4.0,
-                                        )
-                                      ],
+                          new BoxShadow(
+                            color: Colors.black45,
+                            offset: new Offset(1.0, 1.0),
+                            blurRadius: 4.0,
+                          )
+                        ],
                       ),
                       alignment: Alignment.center,
                       child: Padding(
                         padding: const EdgeInsets.all(8.0),
-                        child: new Text(category[i].catName.toUpperCase(),style: TextStyle(color: Colors.white,fontWeight: FontWeight.w800),),
+                        child: new Text(
+                          category[i].catName.toUpperCase(),
+                          style: TextStyle(
+                              color: Colors.white, fontWeight: FontWeight.w800),
+                        ),
                       ),
                     ),
                   );
@@ -397,8 +409,10 @@ class _HomeState extends State<Home> {
                   Expanded(
                     child: new Text(
                       'Accounting',
-                      style:
-                          TextStyle(fontSize: 20.0, fontWeight: FontWeight.w600,color: Color(0xFFFF900F)),
+                      style: TextStyle(
+                          fontSize: 20.0,
+                          fontWeight: FontWeight.w600,
+                          color: Color(0xFFFF900F)),
                     ),
                   ),
                   Container(
@@ -739,7 +753,7 @@ class _HomeState extends State<Home> {
                     ),
                   )
                 : new CircularProgressIndicator(),
-                          ],
+          ],
         ),
       ),
     );
