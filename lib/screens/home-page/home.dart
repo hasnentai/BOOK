@@ -259,7 +259,7 @@ class _HomeState extends State<Home> {
         centerTitle: false,
       ),
       drawer: Drawer(child: navBarBuilder(context)),
-      body: !(filteredProducts == null)
+      body: !(category == null)
           ? productListBuilder(context)
           : new Center(child: new CircularProgressIndicator()),
     );
