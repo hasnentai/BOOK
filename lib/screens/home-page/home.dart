@@ -70,7 +70,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getCategoryData() async {
     var res = await http.get(
-        "https://bookabook.co.za/wp-json/wc/v3/products/categories?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1");
+        "http://bookabook.co.za/wp-json/wc/v3/products/categories?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1");
 
     setState(() {
       var data = json.decode(res.body);
@@ -86,7 +86,7 @@ class _HomeState extends State<Home> {
   }
   Future<void> getBusinessManagementData() async {
     var res =await http.get(
-        "https://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=905");
+        "http://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=905");
 
     var data = json.decode(res.body);
     var list = data as List;
@@ -103,7 +103,7 @@ class _HomeState extends State<Home> {
 
  Future<void> getBookRentalData() async {
     var res =await http.get(
-        "https://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=4047");
+        "http://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=4047");
 
     var data = json.decode(res.body);
     var list = data as List;
@@ -119,7 +119,7 @@ class _HomeState extends State<Home> {
   }
   Future<void> getAccountingData() async {
     var res = await http.get(
-        "https://bookabook.co.za/wp-json/wc/v3/products?category=127&per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1");
+        "http://bookabook.co.za/wp-json/wc/v3/products?category=127&per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1");
 
     setState(() {
       var data = json.decode(res.body);
@@ -136,7 +136,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getAuditingData() async {
     var res = await http.get(
-        "https://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=139");
+        "http://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=139");
 
     var data = json.decode(res.body);
     var list = data as List;
@@ -153,7 +153,7 @@ class _HomeState extends State<Home> {
 
   Future<void> getBankingData() async {
     var res = await http.get(
-        "https://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=930");
+        "http://bookabook.co.za/wp-json/wc/v3/products?per_page=100&consumer_key=ck_34efa34549443c3706b49f8525947961737748e5&consumer_secret=cs_5a3a24bff0ed2e8c66c8d685cb73680090a44f75&page=1&category=930");
 
     var data = json.decode(res.body);
     var list = data as List;
