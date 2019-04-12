@@ -1,6 +1,7 @@
 
 import 'package:bookabook/screens/home-page/home.dart';
 import 'package:bookabook/screens/login-page/login.dart';
+import 'package:bookabook/screens/practice/practice.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:shared_preferences/shared_preferences.dart';
@@ -11,6 +12,7 @@ var routes = <String, WidgetBuilder>{
   "/login": (BuildContext context) => Login(),
   '/register': (BuildContext context) => Register(),
   "/myhome": (BuildContext context) => MyHomePage(),
+  "/mypractice":(BuildContext context)=> MyPractice(),
 };
 
 void main() => runApp(MyApp());

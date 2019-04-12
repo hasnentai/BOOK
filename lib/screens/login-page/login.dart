@@ -3,6 +3,7 @@ import 'dart:convert';
 
 import 'package:bookabook/screens/home-page/home.dart';
 import 'package:bookabook/screens/login-page/login_controller.dart';
+import 'package:bookabook/screens/practice/practice.dart';
 import 'package:http/http.dart' as http;
 import 'package:flutter/material.dart';
 
@@ -27,6 +28,7 @@ class _LoginState extends State<Login> {
   Map<String, dynamic> userInfo;
   http.Response response;
   submitForm() async {
+     
     FocusScope.of(context).requestFocus(new FocusNode());
     if (_formKey.currentState.validate()) {
       _formKey.currentState.save();
@@ -57,7 +59,7 @@ class _LoginState extends State<Login> {
           MaterialPageRoute(
               builder: (context) =>
                   Home(userInfo["user_email"], userInfo["user_display_name"])));
-    }
+    } 
   }
 
   void _showSnackBar(BuildContext context, String message) {
