@@ -5,13 +5,15 @@ class ProductService {
   String stockStatus;
   String price;
   String priceHtml;
+  String status;
+  int totalSales;
   List<Images> images;
-  List htmlTags;
 
   ProductService(
-      {this.id, this.name, this.stockStatus, this.price,this.images,this.priceHtml});
+      {this.id, this.name, this.stockStatus, this.price,this.images,this.priceHtml,this.totalSales,this.status});
   
   factory ProductService.fromJson(Map<String, dynamic> json) {
+   
   var list = json['images'] as List;
   List<Images> imagesList = list.map((i) => Images.fromJson(i)).toList();
  
@@ -20,7 +22,9 @@ class ProductService {
         name: json['name'],
         stockStatus: json['stock_status'],
         price: json['price'],
-        images: imagesList
+        images: imagesList,
+        totalSales: json['total_sales'],
+        status: json['status']
        );
   }
 }
@@ -33,4 +37,10 @@ class Images {
   
     return Images(src: json['src']);
   }
+}
+
+
+class Attributes{
+  String id;
+
 }
